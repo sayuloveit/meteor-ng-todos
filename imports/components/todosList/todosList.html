@@ -8,7 +8,13 @@
 </header>
 
 <ul>
-    <li ng-repeat="task in taskCtrl.tasks">
-        {{task.text}}
-    </li>
+  <li ng-repeat="task in taskCtrl.tasks" ng-class="{'checked': task.checked}">
+    <button class="delete" ng-click="taskCtrl.removeTask(task)">&times;</button>
+
+    <input type="checkbox" ng-checked="task.checked" ng-click="taskCtrl.setChecked(task)" class="toggle-checked"/>
+
+    <span class="text">
+      {{task.text}}
+    </span>
+  </li>
 </ul>

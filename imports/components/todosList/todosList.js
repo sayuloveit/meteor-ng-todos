@@ -23,11 +23,25 @@ class TodosListCtrl {
     // Insert a taks into the Collection
     Tasks.insert({
         text: newTask,
-        createdAt: new Date()
+        createdAt: new Date(),
+        checked: false
     })
 
     // Clear form
     this.newTask = '';
+  }
+
+  setChecked(task) {
+      // Toogle the checked property value
+      Tasks.update(task._id, {
+          $set: {
+              checked: !task.checked
+          }
+      })
+  }
+
+  removeTask(task) {
+      Tasks.remove(task._id)
   }
 
 }
