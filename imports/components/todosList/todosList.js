@@ -11,29 +11,32 @@ class TodosListCtrl {
     this.hideCompleted = false;
 
     this.helpers({
-      tasks() {
-        const selector = {};
+        tasks() {
+            const selector = {};
 
-        // If hide completed is checked, filter tasks
-        if (this.getReactively('hideCompleted')) {
-          selector.checked = {
-            $ne: true
-          };
-        }
-
-        return Tasks.find(selector, {
-            sort: {
-                createdAt: -1
-            }
-        });
-    },
-    incompleteCount() {
-        return Tasks.find({
-            checked: {
+            // If hide completed is checked, filter tasks
+            if (this.getReactively('hideCompleted')) {
+              selector.checked = {
                 $ne: true
+              };
             }
-        }).count()
-    }
+
+            return Tasks.find(selector, {
+                sort: {
+                    createdAt: -1
+                }
+            });
+        },
+        incompleteCount() {
+            return Tasks.find({
+                checked: {
+                    $ne: true
+                }
+            }).count()
+        },
+        currentUser() {
+            return Meteor.user();
+        }
     })
   }
 
@@ -42,7 +45,9 @@ class TodosListCtrl {
     Tasks.insert({
         text: newTask,
         createdAt: new Date(),
-        checked: false
+        checked: false,
+        owner: Meteor.userId(),
+        username: Meteor.user().username
     })
 
     // Clear form
