@@ -4,7 +4,7 @@ import { Tasks } from '../../api/tasks.js';
 
 import template from './todosList.html';
 
-class TodosListCtrl {
+export class TodosListCtrl {
   constructor($scope) {
     $scope.viewModel(this);
 
@@ -64,12 +64,3 @@ class TodosListCtrl {
   }
 
 }
-
-export default angular.module('todosList', [
-  angularMeteor
-])
-  .component('todosList', {
-    templateUrl: 'imports/components/todosList/todosList.html',
-    controller: ['$scope', TodosListCtrl],
-    controllerAs: 'taskCtrl'
-  });
